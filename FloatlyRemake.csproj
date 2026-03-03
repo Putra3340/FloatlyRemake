@@ -1,0 +1,109 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\Images\default.png" />
+    <None Remove="Assets\Images\icon-addplaylist.png" />
+    <None Remove="Assets\Images\icon-addqueue.png" />
+    <None Remove="Assets\Images\icon-arrow-left.png" />
+    <None Remove="Assets\Images\icon-close.png" />
+    <None Remove="Assets\Images\icon-debug.png" />
+    <None Remove="Assets\Images\icon-delete.png" />
+    <None Remove="Assets\Images\icon-download.png" />
+    <None Remove="Assets\Images\icon-edit.png" />
+    <None Remove="Assets\Images\icon-equalizer.png" />
+    <None Remove="Assets\Images\icon-fullscreen.png" />
+    <None Remove="Assets\Images\icon-hd.png" />
+    <None Remove="Assets\Images\icon-home.png" />
+    <None Remove="Assets\Images\icon-library.png" />
+    <None Remove="Assets\Images\icon-liked-cover.png" />
+    <None Remove="Assets\Images\icon-listcenter.png" />
+    <None Remove="Assets\Images\icon-logo.png" />
+    <None Remove="Assets\Images\icon-logout.png" />
+    <None Remove="Assets\Images\icon-loop.png" />
+    <None Remove="Assets\Images\icon-love-blank.png" />
+    <None Remove="Assets\Images\icon-love.png" />
+    <None Remove="Assets\Images\icon-maximize.png" />
+    <None Remove="Assets\Images\icon-middletext.png" />
+    <None Remove="Assets\Images\icon-minimize.png" />
+    <None Remove="Assets\Images\icon-minimizefullscreen.png" />
+    <None Remove="Assets\Images\icon-muted.png" />
+    <None Remove="Assets\Images\icon-next.png" />
+    <None Remove="Assets\Images\icon-pause.png" />
+    <None Remove="Assets\Images\icon-pip.png" />
+    <None Remove="Assets\Images\icon-player.png" />
+    <None Remove="Assets\Images\icon-playlist.png" />
+    <None Remove="Assets\Images\icon-plus.png" />
+    <None Remove="Assets\Images\icon-prev.png" />
+    <None Remove="Assets\Images\icon-refresh.png" />
+    <None Remove="Assets\Images\icon-resume.png" />
+    <None Remove="Assets\Images\icon-search.png" />
+    <None Remove="Assets\Images\icon-settings.png" />
+    <None Remove="Assets\Images\icon-shuffle.png" />
+    <None Remove="Assets\Images\icon-speaker.png" />
+    <None Remove="Assets\Images\icon-user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.11" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.11" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.11" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.11" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.3.11">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="LibVLCSharp" Version="3.9.6" />
+    <PackageReference Include="LibVLCSharp.Avalonia" Version="3.9.6" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.23" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\Images\default.png" />
+    <AvaloniaResource Include="Assets\Images\icon-addplaylist.png" />
+    <AvaloniaResource Include="Assets\Images\icon-addqueue.png" />
+    <AvaloniaResource Include="Assets\Images\icon-arrow-left.png" />
+    <AvaloniaResource Include="Assets\Images\icon-close.png" />
+    <AvaloniaResource Include="Assets\Images\icon-debug.png" />
+    <AvaloniaResource Include="Assets\Images\icon-delete.png" />
+    <AvaloniaResource Include="Assets\Images\icon-download.png" />
+    <AvaloniaResource Include="Assets\Images\icon-edit.png" />
+    <AvaloniaResource Include="Assets\Images\icon-equalizer.png" />
+    <AvaloniaResource Include="Assets\Images\icon-fullscreen.png" />
+    <AvaloniaResource Include="Assets\Images\icon-hd.png" />
+    <AvaloniaResource Include="Assets\Images\icon-home.png" />
+    <AvaloniaResource Include="Assets\Images\icon-library.png" />
+    <AvaloniaResource Include="Assets\Images\icon-liked-cover.png" />
+    <AvaloniaResource Include="Assets\Images\icon-listcenter.png" />
+    <AvaloniaResource Include="Assets\Images\icon-logo.png" />
+    <AvaloniaResource Include="Assets\Images\icon-logout.png" />
+    <AvaloniaResource Include="Assets\Images\icon-loop.png" />
+    <AvaloniaResource Include="Assets\Images\icon-love-blank.png" />
+    <AvaloniaResource Include="Assets\Images\icon-love.png" />
+    <AvaloniaResource Include="Assets\Images\icon-maximize.png" />
+    <AvaloniaResource Include="Assets\Images\icon-middletext.png" />
+    <AvaloniaResource Include="Assets\Images\icon-minimize.png" />
+    <AvaloniaResource Include="Assets\Images\icon-minimizefullscreen.png" />
+    <AvaloniaResource Include="Assets\Images\icon-muted.png" />
+    <AvaloniaResource Include="Assets\Images\icon-next.png" />
+    <AvaloniaResource Include="Assets\Images\icon-pause.png" />
+    <AvaloniaResource Include="Assets\Images\icon-pip.png" />
+    <AvaloniaResource Include="Assets\Images\icon-player.png" />
+    <AvaloniaResource Include="Assets\Images\icon-playlist.png" />
+    <AvaloniaResource Include="Assets\Images\icon-plus.png" />
+    <AvaloniaResource Include="Assets\Images\icon-prev.png" />
+    <AvaloniaResource Include="Assets\Images\icon-refresh.png" />
+    <AvaloniaResource Include="Assets\Images\icon-resume.png" />
+    <AvaloniaResource Include="Assets\Images\icon-search.png" />
+    <AvaloniaResource Include="Assets\Images\icon-settings.png" />
+    <AvaloniaResource Include="Assets\Images\icon-shuffle.png" />
+    <AvaloniaResource Include="Assets\Images\icon-speaker.png" />
+    <AvaloniaResource Include="Assets\Images\icon-user.png" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,68 @@
+<Application xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 x:Class="FloatlyRemake.App"
+			 RequestedThemeVariant="Dark">
+	<!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+	<Application.Styles>
+		<FluentTheme />
+
+	</Application.Styles>
+	<Application.Resources>
+<Color x:Key="Color.BackgroundDark">#0a0a0f</Color>
+    <Color x:Key="Color.BackgroundSecondary">#1a1a2e</Color>
+    <Color x:Key="Color.SidebarBg">#60141423</Color>
+    <Color x:Key="Color.BackgroundMuted">#1AFFFFFF</Color>
+
+    <Color x:Key="Color.AccentIndigo">#6366f1</Color>
+    <Color x:Key="Color.AccentPurple">#A273FF</Color>
+    <Color x:Key="Color.AccentDeepIndigo">#4f46e5</Color>
+    <Color x:Key="Color.AccentGreen">#1DB954</Color>
+    <Color x:Key="Color.AccentRed">#e22134</Color>
+
+    <Color x:Key="Color.PrimaryText">#FFFFFF</Color>
+    <Color x:Key="Color.SecondaryText">#B8B5FF</Color>
+    <Color x:Key="Color.NotificationDanger">#EF4444</Color>
+
+		    <SolidColorBrush x:Key="Brush.BackgroundDark" Color="{StaticResource Color.BackgroundDark}"/>
+    <SolidColorBrush x:Key="Brush.BackgroundSecondary" Color="{StaticResource Color.BackgroundSecondary}"/>
+    <SolidColorBrush x:Key="Brush.SidebarBg" Color="{StaticResource Color.SidebarBg}"/>
+    <SolidColorBrush x:Key="Brush.BackgroundMuted" Color="{StaticResource Color.BackgroundMuted}"/>
+
+    <SolidColorBrush x:Key="Brush.AccentIndigo" Color="{StaticResource Color.AccentIndigo}"/>
+    <SolidColorBrush x:Key="Brush.AccentPurple" Color="{StaticResource Color.AccentPurple}"/>
+    <SolidColorBrush x:Key="Brush.AccentDeepIndigo" Color="{StaticResource Color.AccentDeepIndigo}"/>
+    <SolidColorBrush x:Key="Brush.AccentGreen" Color="{StaticResource Color.AccentGreen}"/>
+    <SolidColorBrush x:Key="Brush.AccentRed" Color="{StaticResource Color.AccentRed}"/>
+
+    <SolidColorBrush x:Key="Brush.PrimaryText" Color="{StaticResource Color.PrimaryText}"/>
+    <SolidColorBrush x:Key="Brush.SecondaryText" Color="{StaticResource Color.SecondaryText}"/>
+    <SolidColorBrush x:Key="Brush.NotificationDanger" Color="{StaticResource Color.NotificationDanger}"/>
+
+		<ControlTheme x:Key="PurpleHoverButton"
+					  TargetType="Button">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Foreground" Value="White"/>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Background="{TemplateBinding Background}"
+							CornerRadius="6">
+						<ContentPresenter
+						Content="{TemplateBinding Content}"
+						ContentTemplate="{TemplateBinding ContentTemplate}"
+						HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+						VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#7C3AED"/>
+			</Style>
+		</ControlTheme>
+
+	</Application.Resources>
+</Application>
