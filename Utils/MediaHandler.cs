@@ -16,9 +16,8 @@ namespace FloatlyRemake.Utils
 
         private static LibVLC? _libVlc;
         public static MediaPlayer? _player;
-
+        public static event Action<bool>? OnNewMediaLoaded;
         public static bool IsInitialized => _libVlc != null && _player != null;
-
         public static LibVLC LibVlc
         {
             get
@@ -37,6 +36,7 @@ namespace FloatlyRemake.Utils
             }
         }
 
+        public static VLCState State => IsInitialized ? _player!.State : VLCState.NothingSpecial;
         /// <summary>
         /// Initialize LibVLC + MediaPlayer once. Safe to call multiple times.
         /// </summary>
@@ -125,11 +125,14 @@ namespace FloatlyRemake.Utils
             {
                 uri = new Uri(Path.GetFullPath(uriOrPath));
             }
-
             Play(uri, autoplay);
         }
+        public static void TriggerLoad(bool isVideo)
+        {
+            OnNewMediaLoaded?.Invoke(isVideo);
+        }
 
-        public static void Pause()
+        public static void PauseResume()
         {
             if (!IsInitialized) return;
             _player!.Pause();
@@ -146,6 +149,11 @@ namespace FloatlyRemake.Utils
             if (!IsInitialized) return;
             var v = Math.Clamp(volume0to100, 0, 100);
             _player!.Volume = v;
+        }
+        public static void MuteUnmute()
+        {
+            if (!IsInitialized) return;
+            _player!.Mute = !_player.Mute;
         }
 
         public static void SeekTo(TimeSpan position)

@@ -8,7 +8,7 @@
 		x:Class="FloatlyRemake.MainWindow"
 		Foreground="White"
 		ShowInTaskbar="True"
-		Title="Floatly_Remake"
+		Title="FloatlyRemake"
 		SystemDecorations="None"
 		ExtendClientAreaToDecorationsHint="True"
 		ExtendClientAreaChromeHints="NoChrome"
@@ -22,7 +22,28 @@
 			<Grid RowDefinitions="Auto, *">
 				<!-- Top Bar -->
 				<Grid ColumnDefinitions="*,Auto,Auto,Auto" Background="{StaticResource Brush.BackgroundSecondary}" Height="40" PointerPressed="DragWindow">
-
+					<TextBlock Text="FloatlyDev" VerticalAlignment="Center" Margin="10,0,0,0"/>
+					<Button Click="Minimize_Click" Grid.Column="1" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="40">
+						<Border Background="White" Width="20">
+							<Border.OpacityMask>
+								<ImageBrush Source="/Assets/Images/icon-minimize.png" Stretch="Uniform"/>
+							</Border.OpacityMask>
+						</Border>
+					</Button>
+					<Button Click="Maximize_Click" Grid.Column="2" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="40">
+						<Border Background="White" Width="20">
+							<Border.OpacityMask>
+								<ImageBrush Source="/Assets/Images/icon-maximize.png" Stretch="Uniform"/>
+							</Border.OpacityMask>
+						</Border>
+					</Button>
+					<Button Click="Close_Click" Grid.Column="3" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="40">
+						<Border Background="White" Width="20">
+							<Border.OpacityMask>
+								<ImageBrush Source="/Assets/Images/icon-close.png" Stretch="Uniform"/>
+							</Border.OpacityMask>
+						</Border>
+					</Button>
 				</Grid>
 				<!-- Main Content -->
 				<Grid ColumnDefinitions="Auto,*,Auto" Grid.Row="1">
@@ -102,54 +123,70 @@
 					<!-- Right Sidebar -->
 					<StackPanel x:Name="PlayerCard" DataContext="{x:Static models:StaticBinding.CurrentSong}" x:DataType="models:Song" Orientation="Vertical" Background="{StaticResource Brush.SidebarBg}" Width="340" Grid.Column="2">
 						<TextBlock Text="Now Playing..." Margin="10,20,0,40" FontSize="28" Foreground="White"/>
-						<Image Source="{Binding CoverBitmap}" Margin="5,0,5,15"/>
+						<Image Source="{Binding CoverBitmap}" Margin="5,0,5,15" Height="200"/>
 						<TextBlock Text="{Binding Title}" HorizontalAlignment="Center" FontSize="22"/>
 						<TextBlock Text="{Binding ArtistName}" HorizontalAlignment="Center" FontSize="14" Margin="0,0,0,15"/>
-						<StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-							<Button x:Name="BtnPlaylist" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="20">
+						<Grid ColumnDefinitions="*,*" Margin="20,0,20,20">
+							<Button x:Name="BtnPiP" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="25" Height="25" Margin="10,0,10,0" HorizontalAlignment="Left">
 								<Border Background="White">
+									<Border.OpacityMask>
+										<ImageBrush Source="/Assets/Images/icon-pip.png" Stretch="Uniform"/>
+									</Border.OpacityMask>
+								</Border>
+							</Button>
+							<Button x:Name="BtnFullScreen" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="25" Height="25" Margin="10,0,10,0" Grid.Column="1" HorizontalAlignment="Right">
+								<Border Background="White">
+									<Border.OpacityMask>
+										<ImageBrush Source="/Assets/Images/icon-fullscreen.png" Stretch="Uniform"/>
+									</Border.OpacityMask>
+								</Border>
+							</Button>
+						</Grid>
+						<StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+							<Button x:Name="BtnPlaylist" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+								<Border Background="White" Width="20">
 									<Border.OpacityMask>
 										<ImageBrush Source="/Assets/Images/icon-addplaylist.png" Stretch="Uniform"/>
 									</Border.OpacityMask>
 								</Border>
 							</Button>
-							<Button x:Name="BtnEqualizer" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="20">
-								<Border Background="White">
+							<Button x:Name="BtnEqualizer" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+								<Border Background="White" Width="20">
 									<Border.OpacityMask>
 										<ImageBrush Source="/Assets/Images/icon-equalizer.png" Stretch="Uniform"/>
 									</Border.OpacityMask>
 								</Border>
 							</Button>
-							<Button x:Name="BtnPrev" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="20">
-								<Border Background="White">
+							<Button x:Name="BtnPrev" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+								<Border Background="White" Width="20">
 									<Border.OpacityMask>
 										<ImageBrush Source="/Assets/Images/icon-prev.png" Stretch="Uniform"/>
 									</Border.OpacityMask>
 								</Border>
 							</Button>
-							<Button x:Name="BtnPlayPause" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="20">
-								<Border Background="White">
+							<Button x:Name="BtnPlayPause" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+								<Border Background="White" Width="20">
 									<Border.OpacityMask>
 										<ImageBrush Source="/Assets/Images/icon-resume.png" Stretch="Uniform"/>
 									</Border.OpacityMask>
 								</Border>
 							</Button>
-							<Button x:Name="BtnNext" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="20">
-								<Border Background="White">
+							<Button x:Name="BtnNext" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+								<Border Background="White" Width="20">
 									<Border.OpacityMask>
 										<ImageBrush Source="/Assets/Images/icon-next.png" Stretch="Uniform"/>
 									</Border.OpacityMask>
 								</Border>
 							</Button>
-							<Button x:Name="BtnLoop" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="20">
-								<Border Background="White">
+							<Button x:Name="BtnLoop" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+								<Border Background="White" Width="20">
 									<Border.OpacityMask>
 										<ImageBrush Source="/Assets/Images/icon-loop.png" Stretch="Uniform"/>
 									</Border.OpacityMask>
 								</Border>
 							</Button>
-							<Button x:Name="BtnLike" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40" Height="20">
-								<Border Background="White">
+							<Button x:Name="BtnLike" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+								<Border Background="White" Width="20">
 									<Border.OpacityMask>
 										<ImageBrush Source="/Assets/Images/icon-love-blank.png" Stretch="Uniform"/>
 									</Border.OpacityMask>
@@ -161,28 +198,18 @@
 							<TextBlock x:Name="Lbl_MaxDuration" Text="67.67" Grid.Column="1" HorizontalAlignment="Right"/>
 						</Grid>
 						<Slider x:Name="PlayerSlider" Margin="10,0,10,0"/>
-						<Border BorderBrush="{StaticResource Brush.BackgroundMuted}" BorderThickness="1" Height="208" Margin="10,0,10,0">
+						<Border BorderBrush="{StaticResource Brush.BackgroundMuted}" BorderThickness="1" Height="145" Margin="10,0,10,0">
 							<TextBlock x:Name="Lbl_Lyric" Text="Lyrics Here..." FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
 						</Border>
 					</StackPanel>
 				</Grid>
 			</Grid>
 			<!-- Notification Layer -->
-			<ItemsControl x:Name="NotificationHost"
-						  HorizontalAlignment="Right"
-						  VerticalAlignment="Top"
-						  Margin="20"
-						  ItemsSource="{x:Static models:StaticBinding.NotificationList}" x:DataType="models:Notification">
+			<ItemsControl x:Name="NotificationHost" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" ItemsSource="{x:Static models:StaticBinding.NotificationList}" x:DataType="models:Notification">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Border Background="{StaticResource Brush.BackgroundSecondary}"
-								CornerRadius="12"
-								Padding="14"
-								Margin="0,0,0,10"
-								BoxShadow="0 10 20 0 #40000000">
-
-							<TextBlock Text="{Binding Message}"
-									   Foreground="{StaticResource Brush.PrimaryText}"/>
+						<Border Background="{StaticResource Brush.AccentDeepIndigo}" CornerRadius="12" Padding="14" Margin="0,0,0,10" BoxShadow="0 10 20 0 #40000000">
+							<TextBlock Text="{Binding Message}" Foreground="{StaticResource Brush.PrimaryText}"/>
 						</Border>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>

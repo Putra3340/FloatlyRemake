@@ -50,6 +50,7 @@ namespace FloatlyRemake.Models
             Cover = "avares://FloatlyRemake/Assets/Images/default.png",
             CreatedAt = DateTime.Now
         };
-        public static ObservableCollection<Notification> NotificationList = new ObservableCollection<Notification>();
+        public static ObservableCollection<Notification> NotificationList = new ObservableCollection<Notification>() { new Notification { Message = "This is notification"} };
+        public static ObservableCollection<LyricList> LyricLists = new ObservableCollection<LyricList>() { new LyricList { Start = TimeSpan.Zero, End = TimeSpan.FromSeconds(5), Text = "This is lyric" } };
     }
 }

@@ -9,5 +9,6 @@ namespace FloatlyRemake
     {
         public static string ServerUrl = "https://floatly.starhost.web.id";
         public static string LoginToken = "MTc3MjQ4MDEzMzAwOXwyOWI0YjQ5Mnw3Mzk4OTZ8ZTcwYzEzNDMyNjY2NGMwNWE2ZTZhNmE2MTk4Y2U0ZTJ8MTc3MzA4NDkzMw==";
+        public static string TempDirectory = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "FloatlyRemake");
     }
 }

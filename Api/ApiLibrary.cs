@@ -43,15 +43,33 @@ namespace FloatlyRemake.Api
             if (!response.IsSuccessStatusCode)
                 throw new Exception("API request failed with status code: " + response.StatusCode);
             var json = await response.Content.ReadAsStringAsync();
-            var apiSongs = JsonSerializer.Deserialize<Song>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            if (apiSongs == null)
-                throw new Exception("No songs found for the query.");
+            var apiSongs = JsonSerializer.Deserialize<Song>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? throw new Exception("No songs found for the query.");
+            var lyrics = await SRTParser.ParseSRT(apiSongs.Lyrics);
 
             await Dispatcher.UIThread.InvokeAsync(() =>
             {
                 StaticBinding.CurrentSong = apiSongs;
                 MainWindow.Instance.PlayerCard.DataContext = apiSongs;
+                MainWindow.Instance.DataContext = apiSongs;
                 MediaHandler.Play(apiSongs.Music);
+                MediaHandler.TriggerLoad(false);
+                MainWindow.Instance.ShowNotification($"Now Playing {apiSongs.Title} - {apiSongs.ArtistName}");
+                StaticBinding.LyricLists.Clear();
+                foreach (var lyric in lyrics)
+                    StaticBinding.LyricLists.Add(lyric);
+            });
+        }
+        public static async Task PlayVideo(string songId)
+        {
+            var response = await http.GetAsync($"{Prefs.ServerUrl}/api/library/v3/video/{Uri.EscapeDataString(songId)}?token={Prefs.LoginToken}");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("API request failed with status code: " + response.StatusCode);
+            var res = await response.Content.ReadAsStringAsync();
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                StaticBinding.CurrentSong.MoviePath = res;
+                MediaHandler.Play(res);
+                MediaHandler.TriggerLoad(true);
             });
         }
     }
