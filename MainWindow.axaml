@@ -4,6 +4,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:models="clr-namespace:FloatlyRemake.Models"
 		xmlns:vlc="clr-namespace:LibVLCSharp.Avalonia;assembly=LibVLCSharp.Avalonia"
+		xmlns:controls="clr-namespace:FloatlyRemake"
 		mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
 		x:Class="FloatlyRemake.MainWindow"
 		Foreground="White"
@@ -119,7 +120,7 @@
 							</ListBox>
 						</Border>
 					</Grid>
-
+					<controls:DonutSpinner x:Name="Loading_Search" Text="Searching..." Size="44" Thickness="5" Stroke="HotPink" Grid.Column="1" IsVisible="False"/>
 					<!-- Right Sidebar -->
 					<StackPanel x:Name="PlayerCard" DataContext="{x:Static models:StaticBinding.CurrentSong}" x:DataType="models:Song" Orientation="Vertical" Background="{StaticResource Brush.SidebarBg}" Width="340" Grid.Column="2">
 						<TextBlock Text="Now Playing..." Margin="10,20,0,40" FontSize="28" Foreground="White"/>
@@ -202,6 +203,7 @@
 							<TextBlock x:Name="Lbl_Lyric" Text="Lyrics Here..." FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="WrapWithOverflow"/>
 						</Border>
 					</StackPanel>
+					<controls:DonutSpinner x:Name="Loading_Player" Text="Searching..." Size="44" Thickness="5" Stroke="HotPink" Grid.Column="2" IsVisible="False"/>
 				</Grid>
 			</Grid>
 			<!-- Notification Layer -->

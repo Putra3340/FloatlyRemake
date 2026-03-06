@@ -51,7 +51,6 @@ public partial class FloatingWindow : Window
             FadeControlBar(ControlBar.Opacity, 0);
             ControlBar.Opacity = 0;
         };
-        MediaHandler.OnNewMediaLoaded += MediaHandler_OnVideoLoaded;
         _hook.KeyPressed += KeyPressed;
         _hook.KeyReleased += KeyReleased;
 
@@ -241,33 +240,27 @@ public partial class FloatingWindow : Window
         hideTimer.Start();
     }
 
-    private void MediaHandler_OnVideoLoaded(bool isVideo)
-    {
-        VideoView.IsVisible = true;
-        VideoView.MediaPlayer = MediaHandler.Player;
-
-        if (isVideo)
-        {
-            // Make it visible BEFORE play so it can create a native surface
-            VideoView.IsVisible = true;
-            // We trigger playback here (or right after), VLC will embed properly
-            Dispatcher.UIThread.Post(() =>
-            {
-                MediaHandler.Play(StaticBinding.CurrentSong.MoviePath); // or wherever you call Play()
-            });
-        }
-        else
-        {
-            VideoView.IsVisible = false;
-            Dispatcher.UIThread.Post(() =>
-            {
-                MediaHandler.Play(StaticBinding.CurrentSong.Music); // or wherever you call Play()
-            });
-        }
-    }
-
     private void Control_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        if (sender is not Button btn)
+            return;
+        if (btn.Name == "BtnPrev")
+        {
+            MediaHandler.SeekTo(TimeSpan.FromMilliseconds(0));
+        }
+        if (btn.Name == "BtnPlayPause")
+        {
+            MediaHandler.PauseResume();
+        }
+        if (btn.Name == "BtnNext")
+        {
+            MediaHandler.SeekTo(TimeSpan.FromMilliseconds(MediaHandler.Player.Length));
+        }
+        if(btn.Name == "BtnClose")
+        {
+            this.Close();
+            Instance = null!;
+        }
     }
     private void PlayerSlider_PointerPressed(object? sender, PointerPressedEventArgs e)
     {

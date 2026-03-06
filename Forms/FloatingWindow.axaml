@@ -4,6 +4,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:models="clr-namespace:FloatlyRemake.Models"
 		xmlns:vlc="clr-namespace:LibVLCSharp.Avalonia;assembly=LibVLCSharp.Avalonia"
+		xmlns:controls="clr-namespace:FloatlyRemake"
 		mc:Ignorable="d" Width="640" Height="460"
 		x:Class="FloatlyRemake.FloatingWindow"
 		Title="FloatingWindow"
@@ -17,64 +18,67 @@
 		<vlc:VideoView x:Name="VideoView" IsHitTestVisible="False" IsVisible="False" Width="640" Height="360" PointerPressed="DragWindow">
 			<Grid>
 				<Border x:Name="ControlBar" Height="90" VerticalAlignment="Bottom" Background="#66000000" Opacity="1" Padding="20" ZIndex="50">
-			<Grid ColumnDefinitions="Auto,Auto,Auto,Auto,*,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
-				<Button x:Name="BtnPrev" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
-					<Border Background="White" Width="20">
-						<Border.OpacityMask>
-							<ImageBrush Source="/Assets/Images/icon-prev.png" Stretch="Uniform"/>
-						</Border.OpacityMask>
-					</Border>
-				</Button>
-				<Button x:Name="BtnPlayPause" Click="Control_Click" Grid.Column="1" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
-					<Border Background="White" Width="20">
-						<Border.OpacityMask>
-							<ImageBrush Source="/Assets/Images/icon-resume.png" Stretch="Uniform"/>
-						</Border.OpacityMask>
-					</Border>
-				</Button>
-				<Button x:Name="BtnNext" Click="Control_Click" Grid.Column="2" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
-					<Border Background="White" Width="20">
-						<Border.OpacityMask>
-							<ImageBrush Source="/Assets/Images/icon-next.png" Stretch="Uniform"/>
-						</Border.OpacityMask>
-					</Border>
-				</Button>
-				<TextBlock x:Name="Lbl_Duration" Text="67.67" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Margin="10,0,10,0"/>
-				<Slider x:Name="PlayerSlider" Margin="10,0,10,0" Grid.Column="4"/>
-				<TextBlock x:Name="Lbl_MaxDuration" Text="67.67" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Margin="10,0,10,0"/>
-				<Button x:Name="BtnVideo" Click="Control_Click" Grid.Column="6" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
-					<Border Background="White" Width="20">
-						<Border.OpacityMask>
-							<ImageBrush Source="/Assets/Images/icon-player.png" Stretch="Uniform"/>
-						</Border.OpacityMask>
-					</Border>
-				</Button>
-				<Button x:Name="BtnLyrics" Click="Control_Click" Grid.Column="7" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
-					<Border Background="White" Width="20">
-						<Border.OpacityMask>
-							<ImageBrush Source="/Assets/Images/icon-middletext.png" Stretch="Uniform"/>
-						</Border.OpacityMask>
-					</Border>
-				</Button>
-				<Button x:Name="BtnLyricsSelect" Click="Control_Click" Grid.Column="8" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
-					<Border Background="White" Width="20">
-						<Border.OpacityMask>
-							<ImageBrush Source="/Assets/Images/icon-listcenter.png" Stretch="Uniform"/>
-						</Border.OpacityMask>
-					</Border>
-				</Button>
-				<Button x:Name="BtnClose" Click="Control_Click" Grid.Column="9" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
-					<Border Background="White" Width="20">
-						<Border.OpacityMask>
-							<ImageBrush Source="/Assets/Images/icon-minimizefullscreen.png" Stretch="Uniform"/>
-						</Border.OpacityMask>
-					</Border>
-				</Button>
-			</Grid>
-		</Border>
+
+					<Grid ColumnDefinitions="Auto,Auto,Auto,Auto,*,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+						<Button x:Name="BtnPrev" Click="Control_Click" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+							<Border Background="White" Width="20">
+								<Border.OpacityMask>
+									<ImageBrush Source="/Assets/Images/icon-prev.png" Stretch="Uniform"/>
+								</Border.OpacityMask>
+							</Border>
+						</Button>
+						<Button x:Name="BtnPlayPause" Click="Control_Click" Grid.Column="1" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+							<Border Background="White" Width="20">
+								<Border.OpacityMask>
+									<ImageBrush Source="/Assets/Images/icon-resume.png" Stretch="Uniform"/>
+								</Border.OpacityMask>
+							</Border>
+						</Button>
+						<Button x:Name="BtnNext" Click="Control_Click" Grid.Column="2" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+							<Border Background="White" Width="20">
+								<Border.OpacityMask>
+									<ImageBrush Source="/Assets/Images/icon-next.png" Stretch="Uniform"/>
+								</Border.OpacityMask>
+							</Border>
+						</Button>
+						<TextBlock x:Name="Lbl_Duration" Text="67.67" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Margin="10,0,10,0"/>
+						<Slider x:Name="PlayerSlider" Margin="10,0,10,0" Grid.Column="4"/>
+						<TextBlock x:Name="Lbl_MaxDuration" Text="67.67" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Margin="10,0,10,0"/>
+						<Button x:Name="BtnVideo" Click="Control_Click" Grid.Column="6" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+							<Border Background="White" Width="20">
+								<Border.OpacityMask>
+									<ImageBrush Source="/Assets/Images/icon-player.png" Stretch="Uniform"/>
+								</Border.OpacityMask>
+							</Border>
+						</Button>
+						<Button x:Name="BtnLyrics" Click="Control_Click" Grid.Column="7" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+							<Border Background="White" Width="20">
+								<Border.OpacityMask>
+									<ImageBrush Source="/Assets/Images/icon-middletext.png" Stretch="Uniform"/>
+								</Border.OpacityMask>
+							</Border>
+						</Button>
+						<Button x:Name="BtnLyricsSelect" Click="Control_Click" Grid.Column="8" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+							<Border Background="White" Width="20">
+								<Border.OpacityMask>
+									<ImageBrush Source="/Assets/Images/icon-listcenter.png" Stretch="Uniform"/>
+								</Border.OpacityMask>
+							</Border>
+						</Button>
+						<Button x:Name="BtnClose" Click="Control_Click" Grid.Column="9" Foreground="White" Theme="{StaticResource PurpleHoverButton}" Width="40	" Height="40">
+							<Border Background="White" Width="20">
+								<Border.OpacityMask>
+									<ImageBrush Source="/Assets/Images/icon-minimizefullscreen.png" Stretch="Uniform"/>
+								</Border.OpacityMask>
+							</Border>
+						</Button>
+					</Grid>
+				</Border>
+				<controls:DonutSpinner x:Name="Loading_Player" Text="Searching..." Size="44" Thickness="5" Stroke="HotPink" Grid.Column="2" IsVisible="False"/>
+
 			</Grid>
 		</vlc:VideoView>
-		
+
 		<Border x:Name="Bdr_ActiveLyric" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Black" Padding="12,6" CornerRadius="6" Grid.Row="1">
 			<TextBlock x:Name="Lbl_ActiveLyric" Text="Lyrics Here.." FontSize="28" FontWeight="SemiBold" Foreground="#EEFFFFFF" TextWrapping="Wrap" TextAlignment="Center"/>
 		</Border>

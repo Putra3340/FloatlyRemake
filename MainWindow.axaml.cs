@@ -22,7 +22,8 @@ namespace FloatlyRemake
         public static MainWindow Instance { get; private set; } = null!;
         DispatcherTimer slidertimer = new DispatcherTimer(); // for slider
         public bool isDragging = false; // dragging slider
-        FloatingWindow? fw = null;
+        public static FloatingWindow? fw = null;
+        public bool IsRepeating = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -38,12 +39,11 @@ namespace FloatlyRemake
             MediaHandler.Player.Opening += MediaHandler_Opening;
             MediaHandler.Player.Playing += MediaHandler_Playing;
             MediaHandler.Player.Paused += MediaHandler_Paused;
-            MediaHandler.Player.Stopped += MediaHandler_Stopped;
             MediaHandler.Player.EndReached += MediaHandler_Finished;
             MediaHandler.Player.EncounteredError += MediaHandler_Error;
             MediaHandler.Player.Buffering += MediaHandler_Buffering;
 
-            slidertimer.Interval = TimeSpan.FromMilliseconds(100);
+            slidertimer.Interval = TimeSpan.FromMilliseconds(33);
             slidertimer.Tick += SliderTimer_Tick;
             slidertimer.Start();
             MediaHandler.OnNewMediaLoaded += MediaHandler_OnVideoLoaded;
@@ -52,7 +52,7 @@ namespace FloatlyRemake
 
         private void MediaHandler_Buffering(object? sender, MediaPlayerBufferingEventArgs e)
         {
-            //throw new NotImplementedException();
+            GlobalLoading.MediaInfo(e.Cache < 100, $"Buffering... {e.Cache:0}%");
         }
 
         private void MediaHandler_Error(object? sender, EventArgs e)
@@ -62,12 +62,15 @@ namespace FloatlyRemake
 
         private void MediaHandler_Finished(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-        private void MediaHandler_Stopped(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            if (IsRepeating)
+            {
+                MediaHandler.Play(StaticBinding.CurrentSong.Music);
+                return;
+            }
+            var songs = StaticBinding.Songs;
+            Random rand = new Random();
+            var next = songs[rand.Next(songs.Count)];
+            ApiLibrary.Play(next.Id);
         }
 
         private void MediaHandler_Paused(object? sender, EventArgs e)
@@ -98,11 +101,13 @@ namespace FloatlyRemake
 
         private void MediaHandler_Opening(object? sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            GlobalLoading.MediaLoading(true,"Loading Media...");
         }
 
         private void MediaHandler_Playing(object? sender, EventArgs e)
         {
+            GlobalLoading.MediaLoading(false);
+            GlobalLoading.MediaInfo(false);
             Dispatcher.UIThread.Post(() =>
             {
                 // Main
@@ -187,8 +192,17 @@ namespace FloatlyRemake
             if (btn.Name == "BtnPiP")
             {
                 ApiLibrary.PlayVideo(StaticBinding.CurrentSong.Id);
-                fw ??= new FloatingWindow();
-                fw.Show();
+
+                if (fw == null)
+                {
+                    fw = new FloatingWindow();
+                    fw.Closed += (_, __) => fw = null;
+                }
+
+                if (!fw.IsVisible)
+                    fw.Show(this);
+
+                fw.Activate();
             }
             if (btn.Name == "BtnFullScreen")
             {
@@ -204,7 +218,7 @@ namespace FloatlyRemake
             }
             if (btn.Name == "BtnPrev")
             {
-
+                MediaHandler.SeekTo(TimeSpan.FromMilliseconds(0));
             }
             if (btn.Name == "BtnPlayPause")
             {
@@ -212,11 +226,11 @@ namespace FloatlyRemake
             }
             if (btn.Name == "BtnNext")
             {
-
+                MediaHandler.SeekTo(TimeSpan.FromMilliseconds(MediaHandler.Player.Length));
             }
             if (btn.Name == "BtnLoop")
             {
-
+                IsRepeating = true;
             }
             if (btn.Name == "BtnLike")
             {
@@ -262,19 +276,22 @@ namespace FloatlyRemake
         }
         private void MediaHandler_OnVideoLoaded(bool isVideo)
         {
-            VideoView.IsVisible = true;
+            VideoView.IsVisible = false;
             VideoView.MediaPlayer = MediaHandler.Player;
-
+            FloatingWindow.Instance?.VideoView.IsVisible = true;
+            FloatingWindow.Instance?.VideoView.MediaPlayer = MediaHandler.Player;
             if (isVideo)
             {
                 // Make it visible BEFORE play so it can create a native surface
-                VideoView.IsVisible = true;
+                VideoView.IsVisible = false;
+                FloatingWindow.Instance?.VideoView.IsVisible = true;
                 // We trigger playback here (or right after), VLC will embed properly
                 MediaHandler.Play(StaticBinding.CurrentSong.MoviePath); // or wherever you call Play()
             }
             else
             {
                 VideoView.IsVisible = false;
+                FloatingWindow.Instance?.VideoView.IsVisible = false;
                 MediaHandler.Play(StaticBinding.CurrentSong.Music); // or wherever you call Play()
             }
         }
@@ -286,7 +303,9 @@ namespace FloatlyRemake
 
         private void Maximize_Click(object? sender, RoutedEventArgs e)
         {
-            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+            if (this.WindowState == WindowState.Maximized) 
+            
+            { this.WindowState = WindowState.Normal; this.Height = 720;this.Width = 1280; } else { this.WindowState = WindowState.Maximized; }
         }
 
         private void Close_Click(object? sender, RoutedEventArgs e)

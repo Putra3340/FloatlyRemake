@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FloatlyRemake"
+             x:Class="FloatlyRemake.DonutSpinner"
+             Background="#B0000000">
+
+	<StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+		<Canvas Width="{Binding Size, RelativeSource={RelativeSource AncestorType=local:DonutSpinner}}"
+				Height="{Binding Size, RelativeSource={RelativeSource AncestorType=local:DonutSpinner}}">
+
+			<Ellipse x:Name="Ring"
+					 Width="{Binding Size, RelativeSource={RelativeSource AncestorType=local:DonutSpinner}}"
+					 Height="{Binding Size, RelativeSource={RelativeSource AncestorType=local:DonutSpinner}}"
+					 Stroke="{Binding Stroke, RelativeSource={RelativeSource AncestorType=local:DonutSpinner}}"
+					 StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource AncestorType=local:DonutSpinner}}"
+					 StrokeDashArray="6,10"
+					 StrokeLineCap="Round"
+					 RenderTransformOrigin="0.5,0.5">
+				<Ellipse.RenderTransform>
+					<RotateTransform Angle="0"/>
+				</Ellipse.RenderTransform>
+			</Ellipse>
+
+		</Canvas>
+
+		<TextBlock Text="{Binding Text, RelativeSource={RelativeSource AncestorType=local:DonutSpinner}}"
+				   FontSize="14"
+				   HorizontalAlignment="Center"
+				   Opacity="0.85"/>
+	</StackPanel>
+</UserControl>
